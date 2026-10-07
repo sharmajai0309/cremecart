@@ -1,0 +1,78 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-low: var(--surface-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-high: var(--surface-high);
+  --color-surface-highest: var(--surface-highest);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-variant: var(--ink-variant);
+  --color-ink-soft: var(--ink-soft);
+}
+
+:root {
+  color-scheme: light;
+  --background: oklch(0.985 0.008 65);
+  --foreground: oklch(0.22 0.015 45);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.015 45);
+  --primary: #2f4237;
+  --primary-foreground: oklch(0.98 0.01 80);
+  --accent: #c85d4b;
+  --accent-foreground: oklch(0.98 0.01 80);
+  --muted: oklch(0.95 0.015 55);
+  --muted-foreground: oklch(0.52 0.025 45);
+  --border: oklch(0.9 0.025 55);
+  --ring: oklch(0.55 0.1 25);
+  --radius: 0.75rem;
+  --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --surface: #fff8f5;
+  --surface-low: #fcf2ec;
+  --surface-container: #f6ece7;
+  --surface-high: #f0e6e1;
+  --surface-highest: #ebe0dc;
+  --line: #e6e2dd;
+  --line-strong: #c3c8c2;
+  --ink: #1f1b18;
+  --ink-variant: #424844;
+  --ink-soft: #737874;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--surface); color: var(--ink); font-family: 'Plus Jakarta Sans', Arial, Helvetica, sans-serif; }
+.font-serif { font-family: var(--font-heading); }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+::-webkit-scrollbar { height: 6px; width: 6px; }
+::-webkit-scrollbar-thumb { background: #cdbdb3; border-radius: 999px; }
+
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.marquee-track { display: inline-flex; white-space: nowrap; animation: marquee 24s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
