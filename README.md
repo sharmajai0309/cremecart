@@ -91,6 +91,27 @@ pnpm typecheck
 pnpm build && pnpm start
 ```
 
+## ☁️ Deploy on Vercel
+
+Connect the repo, then add these in **Vercel → Project → Settings → Environment
+Variables** (enable for Production **and** Preview). `NEXT_PUBLIC_*` values are inlined
+at **build time**, so redeploy after changing them.
+
+| Variable | Scope | Required | Notes |
+| --- | --- | --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Public | ✅ | `https://<ref>.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Public | ✅ | anon / publishable key |
+| `SUPABASE_SECRET_KEY` | **Secret (server)** | ✅ | service-role key — **bypasses RLS**. Mark *Sensitive*. |
+| `ADMIN_EMAILS` | Server | ✅ | comma-separated admins allowed into `/admin` |
+| `NEXT_PUBLIC_SITE_URL` | Public | recommended | `https://your-domain` (canonical URLs, sitemap, OG) |
+| `NEXT_PUBLIC_RAZORPAY_KEY_ID` | Public | optional | only if you enable online payments |
+| `RAZORPAY_KEY_ID` | Secret | optional | Razorpay key id (server-side order creation) |
+| `RAZORPAY_KEY_SECRET` | Secret | optional | Razorpay secret (signature verification) |
+
+> `DATABASE_URL` is **not needed on Vercel** — it's only for running the SQL migrations
+> (locally / CI). Admin login accounts live in Supabase Auth, not env vars. Never prefix
+> a secret with `NEXT_PUBLIC_`.
+
 ## 🗺️ Routes
 
 **Storefront:** `/` · `/shop` · `/p/[slug]` · `/cart` · `/checkout` · `/account` · `/wishlist` · `/track-order` · `/offers` · `/photo-cakes` · `/make-your-own-hamper` · `/personalise` · `/desserts` · `/hampers` · `/delivery` · `/about` · `/contact` · `/faq` · `/occasions/[slug]` · `/cake-delivery/[city]` · `/login` · `/signup` · `/forgot-password` · `/reset-password`

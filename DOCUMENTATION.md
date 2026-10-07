@@ -228,10 +228,28 @@ JSON-LD, `app/sitemap.ts` and `app/robots.ts`; public pages are server-rendered.
 ## 12. Deployment
 
 Vercel is the natural host (App Router + Vercel Analytics). Steps: connect the repo,
-set the env vars above, ensure the DB has all migrations applied, and deploy. Serve
-`public/` assets via the platform CDN. `proxy.ts` runs at the edge for the admin gate.
-Rotate the service-role key and admin password, and remove any stray source-media from
-`public/` before launch.
+set the env vars below, ensure the DB has all migrations applied, and deploy.
+`proxy.ts` runs at the edge for the admin gate. Rotate the service-role key and admin
+password, and remove stray source media from `public/` before launch.
+
+### Environment variables (Project → Settings → Environment Variables)
+
+| Variable | Scope | Required | Notes |
+| --- | --- | --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Public | ✅ | used by client, server client + proxy |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Public | ✅ | anon / publishable key |
+| `SUPABASE_SECRET_KEY` | **Secret (server)** | ✅ | service-role; `createAdminClient()` bypasses RLS |
+| `ADMIN_EMAILS` | Server | ✅ | comma-separated admin allow-list (`proxy.ts`, `requireAdmin`) |
+| `NEXT_PUBLIC_SITE_URL` | Public | recommended | `https://your-domain`; used by `sitemap.ts`, `robots.ts`, page metadata/JSON-LD (falls back to `http://localhost:3000`) |
+| `NEXT_PUBLIC_RAZORPAY_KEY_ID` | Public | optional | online payments only |
+| `RAZORPAY_KEY_ID` | Secret | optional | server-side Razorpay order creation |
+| `RAZORPAY_KEY_SECRET` | Secret | optional | payment signature verification |
+
+- **Not needed on Vercel:** `DATABASE_URL` (migrations only — run them locally / in CI:
+  `psql "$DATABASE_URL" -f supabase/migrations/000N_*.sql` in order).
+- `NEXT_PUBLIC_*` are inlined at **build time** — redeploy after changing them.
+- Never prefix a secret with `NEXT_PUBLIC_`; keep `SUPABASE_SECRET_KEY` and
+  `RAZORPAY_KEY_SECRET` as *Sensitive*.
 
 ## 13. Conventions
 
