@@ -231,8 +231,8 @@ export function StorefrontShell({ children, title, subtitle }: { children: React
             <span className="flex items-center gap-1.5">Crafted with love for Indian celebrations · © {new Date().getFullYear()} CrèmeCart Patisserie Pvt Ltd.</span>
             <div className="flex items-center gap-5">
               <span className="font-semibold text-primary">INR (₹)</span>
-              <Link href="/contact" className="hover:text-primary">Privacy</Link>
-              <Link href="/contact" className="hover:text-primary">Terms</Link>
+              <Link href="/privacy" className="hover:text-primary">Privacy</Link>
+              <Link href="/terms" className="hover:text-primary">Terms</Link>
             </div>
           </div>
         </div>
